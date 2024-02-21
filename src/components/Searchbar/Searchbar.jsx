@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ReactComponent as SearchIcon } from '../../icon/search.svg'; 
 import s from './Searchbar.module.css';
 
 class Searchbar extends Component {
@@ -6,31 +7,35 @@ class Searchbar extends Component {
     query: '',
   };
 
-  handleChange = event => {
-    this.setState({ query: event.target.value });
+  handleChange = (e) => {
+    this.setState({ query: e.target.value });
   };
 
-  handleSubmit = event => {
-    event.preventDefault();
-    this.props.onSubmit(this.state.query);
-    this.setState({ query: '' });
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { query } = this.state;
+    const { onSubmit } = this.props;
+
+    onSubmit(query);
   };
 
   render() {
+    const { query } = this.state;
+
     return (
       <header className={s.searchbar}>
-        <form onSubmit={this.handleSubmit} className={s.form}>
-          <button type="submit" className={s.button}>
-            <span className={s.buttonLabel}>Search</span>
+        <form className={s.searchForm} onSubmit={this.handleSubmit}>
+          <button type="submit" className={s.searchFormButton}>
+            <SearchIcon width="20" height="20" fill="#000" />
           </button>
           <input
+            className={s.searchFormInput}
             type="text"
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            value={this.state.query}
+            value={query}
             onChange={this.handleChange}
-            className={s.input}
           />
         </form>
       </header>
