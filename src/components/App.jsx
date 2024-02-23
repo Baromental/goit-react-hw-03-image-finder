@@ -18,7 +18,7 @@ class App extends Component {
     hasMoreImages: true,
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevState) {
     if (prevState.query !== this.state.query) {
       this.fetchImages();
     }
